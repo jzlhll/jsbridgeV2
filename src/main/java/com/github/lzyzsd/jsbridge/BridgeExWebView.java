@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,11 +59,11 @@ public class BridgeExWebView extends BridgeWebView {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (shouldInterruptParent) {
             ViewParent p = getParent();
-            switch (ev.getAction()) {
-                case MotionEvent.ACTION_DOWN ->
-                    p.requestDisallowInterceptTouchEvent(true);
-                case MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL->
-                    p.requestDisallowInterceptTouchEvent(false);
+            int action =ev.getAction();
+            if (action == MotionEvent.ACTION_DOWN) {
+                p.requestDisallowInterceptTouchEvent(true);
+            } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+                p.requestDisallowInterceptTouchEvent(false);
             }
         }
         return super.dispatchTouchEvent(ev);
@@ -113,9 +112,9 @@ public class BridgeExWebView extends BridgeWebView {
      */
     public void registerH5Event(@NonNull String eventName) {
         registerHandler(eventName, (data, function) -> {
-            events.forEach(it -> {
-                it.onH5Event(this, eventName, data, function);
-            });
+            for (OnH5EventListener listener : events) {
+                listener.onH5Event(this, eventName, data, function);
+            }
         });
     }
 

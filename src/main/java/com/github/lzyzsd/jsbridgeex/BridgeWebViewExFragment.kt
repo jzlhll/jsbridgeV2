@@ -27,6 +27,9 @@ open class BridgeWebViewExFragment : Fragment(), BridgeExWebView.OnH5EventListen
      */
     open fun bridgeWebViewLayoutId() = R.layout.bridge_web_view
 
+    /**
+     * 允许继承修改UA。
+     */
     open fun customUserAgent(originalUA:String) : String{
         return originalUA
     }
