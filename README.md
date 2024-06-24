@@ -1,5 +1,10 @@
 # jsbridge v2.0
 
+下载：
+```groovy
+implementation 'com.github.jzlhll:jsbridgeV2:1.0'
+```
+
 CN: https://blog.csdn.net/jzlhll123/article/details/136345478
 
 > 继承自：
