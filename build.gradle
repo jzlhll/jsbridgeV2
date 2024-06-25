@@ -1,53 +1,7 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'maven-publish'
-}
-
-android {
-    namespace 'com.github.au.jsbridgev2'
-    compileSdk 34
-
-    defaultConfig {
-        minSdk 23
-        consumerProguardFiles "consumer-rules.pro"
-        aarMetadata {
-            minCompileSdk = 23
-        }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    publishing {
-        singleVariant('release') {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.github.au'
-                artifactId = 'jsbridgev2'
-                version = '1.0'
-            }
-        }
-    }
-}
-
-dependencies {
-    implementation libs.androidx.appcompat
-    implementation libs.material
+    id 'com.android.application' version '8.4.1' apply false
+    id 'com.android.library' version '8.4.1' apply false
+    id 'org.jetbrains.kotlin.android' version "2.0.0" apply false
+    id 'com.google.devtools.ksp' version '2.0.0-1.0.21' apply false
 }
