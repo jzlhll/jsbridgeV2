@@ -3,7 +3,9 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
+
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.github.dcendents") {
@@ -12,30 +14,13 @@ pluginManagement {
         }
     }
 }
-
-Properties properties = new Properties()
-InputStream inputStream = file('./local.properties').newDataInputStream()
-properties.load(inputStream)
-//全局的地方都可以使用这个来当做。
-gradle.ext.selfUserName = properties.getProperty('username')
-gradle.ext.selfPassword = properties.getProperty('password')
-gradle.ext.jvmTarget           = "17"
-gradle.ext.sourceCompatibility = JavaVersion.VERSION_17
-gradle.ext.targetCompatibility = JavaVersion.VERSION_17
-gradle.ext.compileSdk          = 34
-gradle.ext.targetSdk           = 34
-gradle.ext.minSdk              = 26
-
-
-///////end of extra params
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven { url "https://maven.aliyun.com/repository/public" }
         google()
         mavenCentral()
-        maven { url 'https://www.jitpack.io' }
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
 }
 rootProject.name = "jsbridgeV2"

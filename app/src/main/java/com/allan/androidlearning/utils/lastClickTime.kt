@@ -2,7 +2,6 @@ package com.allan.androidlearning.utils
 
 import android.util.Log
 import android.view.View
-import com.allan.androidlearning.BuildConfig
 
 /**
  * 上一次按钮点击时间
@@ -46,10 +45,8 @@ fun View.onClick(c:(view: View)->Unit) = setOnClickListener(PaddingClickListener
 fun View.onClick(paddingTime:Long, c:(view: View)->Unit) = setOnClickListener(PaddingClickListener(paddingTime, c))
 
 inline fun logd(block:()->String) {
-    if (BuildConfig.DEBUG) {
-        val str = block()
-        Log.d("au_log", str)
-    }
+    val str = block()
+    Log.d("au_log", str)
 }
 
 /**

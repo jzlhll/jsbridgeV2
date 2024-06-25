@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id "kotlin-android"
     id 'maven-publish'
 }
 
@@ -36,18 +37,17 @@ android {
 afterEvaluate {
     publishing {
         publications {
-            version = '1.0.2'
             release(MavenPublication) {
                 from components.release
                 groupId = "com.github.jzlhll"
                 artifactId = 'jsbridgeV2'
-                version = '1.0.2'
+                version = '1.0.3'
             }
         }
     }
 }
 
 dependencies {
-    implementation libs.androidx.appcompat
-    implementation libs.material
+    compileOnly 'androidx.appcompat:appcompat:1.6.1'
+    compileOnly 'com.google.android.material:material:1.12.0'
 }

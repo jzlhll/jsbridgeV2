@@ -8,9 +8,11 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="31">
+
         <activity
             android:name=".EntroActivity"
             android:exported="true"
