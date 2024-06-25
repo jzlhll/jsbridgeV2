@@ -31,7 +31,8 @@ class WebEChartsGetDataUrlBitmapActivity : BindingActivity<ActivityEchartsBindin
     }
 
     private val unzipHelper = UnzipHelper()
-    private fun echartsCacheDir() = cacheDir.path + "/echarts_v2"
+    private val echartsAssetPath = "echarts_record_dataurl"
+    private fun echartsCacheDir() = cacheDir.path + "/$echartsAssetPath"
 
     private fun findIndexHtml() : String {
         val cd = echartsCacheDir()
@@ -171,7 +172,7 @@ class WebEChartsGetDataUrlBitmapActivity : BindingActivity<ActivityEchartsBindin
         lifecycleScope.launch(Dispatchers.IO) {
             unzipHelper.copyFromAssets(
                 assets,
-                "echarts_v2",
+                echartsAssetPath,
                 arrayOf(
                 "echarts.js",
                 "showEcharts.html"), echartsCacheDir())

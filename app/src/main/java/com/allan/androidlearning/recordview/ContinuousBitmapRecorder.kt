@@ -82,6 +82,8 @@ class ContinuousBitmapRecorder : SurfaceMediaRecorder {
             onDrawOrig(canvas, bitmapOffer!!())
         }
 
+        private var printCount = 0
+
         fun onDrawOrig(canvas: Canvas, bitmap: Bitmap?) {
             bitmap ?: return
             val bitmapWidth = bitmap.width
@@ -90,7 +92,7 @@ class ContinuousBitmapRecorder : SurfaceMediaRecorder {
             val videoWidth = mVideoSize!!.width
             val videoHeight = mVideoSize!!.height
 
-            logd { "bitmap $bitmapWidth * $bitmapHeight; $videoWidth * $videoHeight" }
+            if(printCount++ % 35 == 0) logd { "bitmap $bitmapWidth * $bitmapHeight; $videoWidth * $videoHeight" }
             val matrix = getMatrix2(bitmapWidth, bitmapHeight, videoWidth, videoHeight)
             canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR)
             canvas.drawBitmap(bitmap, matrix, null)

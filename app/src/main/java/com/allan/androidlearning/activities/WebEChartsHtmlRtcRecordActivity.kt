@@ -23,7 +23,8 @@ class WebEChartsHtmlRtcRecordActivity : AppCompatActivity() {
     }
 
     private val unzipHelper = UnzipHelper()
-    private fun echartsCacheDir() = cacheDir.path + "/echarts_record"
+    private val assetPath = "echarts_record_html_rtc"
+    private fun echartsCacheDir() = cacheDir.path + "/$assetPath"
 
     private fun findIndexHtml() : String {
         val echartsCacheDir = echartsCacheDir()
@@ -95,7 +96,7 @@ class WebEChartsHtmlRtcRecordActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             delay(50)
             unzipHelper.copyFromAssets(assets,
-                "echarts_record",
+                assetPath,
                 arrayOf(
                 "echarts.js",
                 "index.html",

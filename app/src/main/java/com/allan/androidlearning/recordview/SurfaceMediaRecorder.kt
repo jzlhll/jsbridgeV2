@@ -30,7 +30,7 @@ open class SurfaceMediaRecorder : MediaRecorder {
     @RequiresApi(Build.VERSION_CODES.S)
     constructor(context: Context) : super(context)
     /**
-     * 录制过程中表面错误，在这种情况下，应用程序必须释放
+     * 录制过程中Surface错误，在这种情况下，应用程序必须释放
      * MediaRecorder 对象并实例化一个新的。
      *
      * @see android.media.MediaRecorder.OnErrorListener
@@ -39,14 +39,14 @@ open class SurfaceMediaRecorder : MediaRecorder {
         const val MEDIA_RECORDER_ERROR_SURFACE = 10000
 
         /**
-         * 在获取用于绘制此{@link Surface}时的表面错误。
+         * 在获取用于绘制此{@link Surface}时的Surface错误。
          *
          * @see android.media.MediaRecorder.OnErrorListener
          */
         const val MEDIA_RECORDER_ERROR_CODE_LOCK_CANVAS = 1
 
         /**
-         * 在释放并发布内容到{@link Surface}时的表面错误。
+         * 在释放并发布内容到{@link Surface}时的Surface错误。
          *
          * @see android.media.MediaRecorder.OnErrorListener
          */
@@ -75,9 +75,9 @@ open class SurfaceMediaRecorder : MediaRecorder {
     private var mInputSurface: Surface? = null
     private var mWorkerHandler: Handler? = null
     private var mVideoFrameDrawer: VideoFrameDrawer? = null
-    // 表示表面组合是否已开始
+    // 表示Surface组合是否已开始
     private val mStarted = AtomicBoolean(false)
-    // 表示表面组合是否暂停
+    // 表示Surface组合是否暂停
     private val mPaused = AtomicBoolean(false)
 
     private val mWorkerRunnable = object : Runnable {
@@ -217,8 +217,8 @@ open class SurfaceMediaRecorder : MediaRecorder {
     }
 
     /**
-     * 返回表面是否可编辑
-     * @return 如果表面可编辑则返回true
+     * 返回Surface是否可编辑
+     * @return 如果Surface可编辑则返回true
      */
     protected fun isSurfaceAvailable(): Boolean {
         return mVideoSource == VideoSource.SURFACE && mInputSurface == null
@@ -232,8 +232,8 @@ open class SurfaceMediaRecorder : MediaRecorder {
         if (isSurfaceAvailable()) {
             mStarted.compareAndSet(true, false)
             mPaused.compareAndSet(true, false)
-            mWorkerHandler?.removeCallbacks(mWorkerRunnable)
         }
+        mWorkerHandler?.removeCallbacks(mWorkerRunnable)
         mInterframeGap = DEFAULT_INTERFRAME_GAP
         mInputSurface = null
         mOnErrorListener = null

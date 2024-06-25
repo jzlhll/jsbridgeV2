@@ -27,11 +27,12 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
     }
 
     private val unzipHelper = UnzipHelper()
-    private fun echartsCacheDir() = cacheDir.path + "/echarts_record"
+    private val webViewRecordAssetPath = "echarts_webview_record"
+    private fun echartsCacheDir() = cacheDir.path + "/$webViewRecordAssetPath"
 
     private fun findIndexHtml() : String {
         val echartsCacheDir = echartsCacheDir()
-        val path = "$echartsCacheDir/index.html"
+        val path = "$echartsCacheDir/showEcharts.html"
         return path
     }
 
@@ -49,8 +50,6 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
         return currentTime
     }
 
-    private lateinit var h5Fragment:RecordWebFragment
-
     override fun onBindingCreated(savedInstanceState: Bundle?) {
         try {
             cacheDir.listFiles()?.forEach {
@@ -65,7 +64,6 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
         supportFragmentManager.beginTransaction()
             .replace(binding.webViewHost.id, h5)
             .commitAllowingStateLoss()
-        h5Fragment = h5
 
         h5.onCreatedCallback = {
             h5.webView.registerHandler("webCallNative") { data, func->
@@ -73,12 +71,12 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
                 when (data) {
                     "initOver" -> {
                         val name = File(cacheDir, "video_${millisToTime()}.mp4").absolutePath
-                        val suc = viewRecorder.setup(name, h5Fragment.webView)
+                        val suc = viewRecorder.setup(name, h5.webView)
                         binding.desc2Text.text = "generating $name ..."
                         logd { "setup $name $suc" }
                         if (suc) {
                             viewRecorder.startRecord()
-                            h5Fragment.webView.sendEventToH5("nativeCallWeb", "startEcharts")
+                            h5.webView.sendEventToH5("nativeCallWeb", "startEcharts")
                         }
                     }
                     "runOver" -> {
@@ -102,7 +100,7 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
 
             unzip {
                 lifecycleScope.launch {
-                    h5Fragment.loadUrl("file://" + findIndexHtml())
+                    h5.loadUrl("file://" + findIndexHtml())
                 }
             }
         }
@@ -117,7 +115,7 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
         lifecycleScope.launch(Dispatchers.IO) {
             unzipHelper.copyFromAssets(
                 assets,
-                "echarts",
+                webViewRecordAssetPath,
                 arrayOf(
                 "echarts.js",
                 "showEcharts.html"), echartsCacheDir())
