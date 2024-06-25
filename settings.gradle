@@ -33,4 +33,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "jsbridgeV2"
 include ':app'
-include ':jsbridgeV2'
+include ':library'

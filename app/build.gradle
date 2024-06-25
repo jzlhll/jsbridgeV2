@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -47,6 +48,6 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
 
     implementation libs.gson
+    implementation project(':library')
 
-    implementation project(":jsbridgeV2")
 }
