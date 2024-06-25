@@ -42,15 +42,16 @@ class WebEChartsHtmlRtcRecordActivity : AppCompatActivity() {
 
         unzip {
             lifecycleScope.launch {
-                h5.loadUrl("file://" + findIndexHtml())
-            }
-        }
+                //可以寻找更合适的实际
+                h5.webView.registerHandler("sendVideoBlobBase64") {
+                        data, cb->
+                    logd { "allanlog get js base64 blob size: " + data.length }
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        cb.onCallBack("success: " + saveToCache(data))
+                    }
+                }
 
-        h5.webView.registerHandler("sendVideoBlobBase64") {
-                data, cb->
-            logd { "allanlog get js base64 blob size: " + data.length }
-            lifecycleScope.launch(Dispatchers.IO) {
-                cb.onCallBack("success: " + saveToCache(data))
+                h5.loadUrl("file://" + findIndexHtml())
             }
         }
     }

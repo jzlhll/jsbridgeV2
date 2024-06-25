@@ -68,12 +68,6 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
         h5Fragment = h5
 
         h5.onCreatedCallback = {
-            unzip {
-                lifecycleScope.launch {
-                    h5Fragment.loadUrl("file://" + findIndexHtml())
-                }
-            }
-
             h5.webView.registerHandler("webCallNative") { data, func->
                 logd { ">>>webCallNative $data hasCallback:" + (func != null) }
                 when (data) {
@@ -103,6 +97,12 @@ class WebEChartsWebViewSoftRecordActivity : BindingActivity<ActivityEchartsBindi
                             binding.videoView.start()
                         }
                     }
+                }
+            }
+
+            unzip {
+                lifecycleScope.launch {
+                    h5Fragment.loadUrl("file://" + findIndexHtml())
                 }
             }
         }

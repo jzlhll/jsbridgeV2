@@ -18,7 +18,6 @@
 <script>
     function getUserInfo(){
         window.WebViewJavascriptBridge.init({})
-        window.WebViewJavascriptBridge.loge("get user info")
         window.WebViewJavascriptBridge.callHandler(
             'getUserInfo',
             {'info': 'I am JS, want to get UserInfo from Java'},

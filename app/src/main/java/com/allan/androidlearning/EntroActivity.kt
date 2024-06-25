@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Space
-import com.allan.androidlearning.activities.WebBridgeActivity
 import com.allan.androidlearning.activities.WebVideoPlayActivity
 import com.allan.androidlearning.binding.BindingActivity
 import com.allan.androidlearning.databinding.ActivityEntroBinding
@@ -23,7 +22,6 @@ class EntroActivity : BindingActivity<ActivityEntroBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(findViewById(R.id.toolbar))
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
         allClasses.forEach { cls ->
@@ -35,6 +33,6 @@ class EntroActivity : BindingActivity<ActivityEntroBinding>() {
             binding.buttonsHost.addView(btn, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
 
-        binding.buttonsHost.addView(Space(this), 200)
+        binding.buttonsHost.addView(Space(this), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200))
     }
 }

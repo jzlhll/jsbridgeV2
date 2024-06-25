@@ -6,11 +6,10 @@
 
     <application
         android:allowBackup="false"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
             android:name=".EntroActivity"
@@ -27,6 +26,21 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".WebBridgeActivity">
+        </activity>
+        <activity
+            android:name=".activities.WebEChartsGetDataUrlBitmapActivity">
+        </activity>
+        <activity
+            android:name=".activities.WebEChartsHtmlRtcRecordActivity">
+        </activity>
+        <activity
+            android:name=".activities.WebEChartsWebViewSoftRecordActivity">
+        </activity>
+        <activity
+            android:name=".activities.WebVideoPlayActivity">
+        </activity>
     </application>
 
 </manifest>

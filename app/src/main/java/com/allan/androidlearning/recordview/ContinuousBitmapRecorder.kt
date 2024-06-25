@@ -5,13 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
-import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Looper
 import android.util.Size
 import androidx.annotation.RequiresApi
-import com.au.module_android.utils.logd
+import com.allan.androidlearning.utils.logd
 
 class ContinuousBitmapRecorder : SurfaceMediaRecorder {
     private var bitmapOffer:(()->Bitmap?)? = null
