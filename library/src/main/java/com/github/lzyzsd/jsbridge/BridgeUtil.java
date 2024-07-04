@@ -1,6 +1,8 @@
 package com.github.lzyzsd.jsbridge;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.webkit.WebView;
@@ -50,5 +52,23 @@ public final class BridgeUtil {
             mainHandler = new Handler(Looper.getMainLooper());
         }
         return mainHandler;
+    }
+
+    static void startActivity(WebView view, @NonNull String url) {
+        startActivity(view, Uri.parse(url));
+    }
+
+    static void startActivity(WebView view, @NonNull Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            view.getContext().startActivity(intent);
+        } catch (Exception e) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                view.getContext().startActivity(intent);
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
     }
 }

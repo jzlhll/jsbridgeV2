@@ -18,6 +18,23 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
 
 	final BridgeObject bridgeObject;
 
+	private boolean supportOverrideSchemeUri = true;
+
+	/**
+	 * 设置uri启动支持。
+	 * 默认true。
+	 */
+	public boolean isSupportOverrideSchemeUri() {
+		return supportOverrideSchemeUri;
+	}
+
+	/**
+	 *  设置uri启动，避免ERR_UNKNOWN_URL_SCHEME
+	 */
+	public void setSupportOverrideSchemeUri(boolean supportOverrideSchemeUri) {
+		this.supportOverrideSchemeUri = supportOverrideSchemeUri;
+	}
+
 	public BridgeWebView(Context context) { //必须保留三个构造，不能this。会导致无法弹起键盘
 		super(context);
 		bridgeObject = new BridgeObject(this);
@@ -35,7 +52,6 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
 		bridgeObject = new BridgeObject(this);
 		init();
 	}
-
 
 	private void init() {
 		this.setVerticalScrollBarEnabled(false);
