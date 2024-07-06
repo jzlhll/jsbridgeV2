@@ -3,7 +3,7 @@
 [![](https://jitpack.io/v/jzlhll/jsbridgeV2.svg)](https://jitpack.io/#jzlhll/jsbridgeV2)
 
 ```groovy
-implementation 'com.github.jzlhll:jsbridgeV2:1.0.8'
+implementation 'com.github.jzlhll:jsbridgeV2:version'
 ```
 CN: https://blog.csdn.net/jzlhll123/article/details/136345478
 
