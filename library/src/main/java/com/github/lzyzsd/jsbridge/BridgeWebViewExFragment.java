@@ -64,7 +64,7 @@ public class BridgeWebViewExFragment extends Fragment implements BridgeExWebView
      * 公开这个函数去设置。
      */
     @ColorInt
-    Integer webViewBackgroundColor() {
+    protected Integer webViewBackgroundColor() {
         return null;
     }
 
