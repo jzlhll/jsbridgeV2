@@ -43,7 +43,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.jzlhll"
                 artifactId = "jsbridgev2"
-                version = "1.0.6"
+                version = "1.0.10"
             }
         }
     }

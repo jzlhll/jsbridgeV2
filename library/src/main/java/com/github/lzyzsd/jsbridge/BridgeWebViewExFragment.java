@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -46,10 +47,25 @@ public class BridgeWebViewExFragment extends Fragment implements BridgeExWebView
         mWebView.getSettings().setTextZoom(100); // 禁止文字缩放
         mWebView.getSettings().setUserAgentString(customUserAgent(mWebView.getSettings().getUserAgentString()));
         mFullVideoLayout = view.findViewById(R.id.fullVideoLayout);
+
+        Integer bgColor = webViewBackgroundColor();
+        if (bgColor != null) {
+            mWebView.setBackgroundColor(bgColor);
+        }
+
         mWebView.fullLayout = mFullVideoLayout;
         mWebView.activity = getActivity();
         mWebView.addOnH5EventListener(this);
         return view;
+    }
+
+    /**
+     * 如果是黑暗模式是需要考虑将内部View默认转成黑色的，是需要设置颜色的。
+     * 公开这个函数去设置。
+     */
+    @ColorInt
+    Integer webViewBackgroundColor() {
+        return null;
     }
 
     @Override
