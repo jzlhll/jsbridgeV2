@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.webkit.WebChromeClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,10 +77,9 @@ public class BridgeExWebView extends BridgeWebView {
     private BridgeWebChromeClient mChromeClient;
 
     @Override
-    protected BridgeWebViewClient generateBridgeWebViewClient() {
+    protected WebChromeClient generateChromeClient() {
         mChromeClient = new BridgeWebChromeClient(this);
-        setWebChromeClient(mChromeClient);//在设置chromeClient的同时，设置，
-        return super.generateBridgeWebViewClient();
+        return mChromeClient;
     }
 
     public void setSelectPictureAction(BridgeWebChromeClient.IValueCallback callback) {

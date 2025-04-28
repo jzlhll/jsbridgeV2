@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.HashMap;
@@ -66,11 +69,26 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+
 		this.setWebViewClient(generateBridgeWebViewClient());
+		WebChromeClient chromeClient = generateChromeClient();
+		if (chromeClient != null) {
+			this.setWebChromeClient(chromeClient);
+		}
+
 		addJavascriptInterface(bridgeObject, "Android");
+
+		setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null);
 	}
 
-    protected BridgeWebViewClient generateBridgeWebViewClient() {
+	@Nullable
+	protected WebChromeClient generateChromeClient() {
+		//empty here.
+		return null;
+	}
+
+	@NonNull
+    protected WebViewClient generateBridgeWebViewClient() {
         return new BridgeWebViewClient(this);
     }
 
