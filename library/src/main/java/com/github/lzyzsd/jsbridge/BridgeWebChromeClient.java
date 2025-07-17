@@ -28,7 +28,7 @@ public class BridgeWebChromeClient extends WebChromeClient {
     ////////////////////////////////
 
     public interface IValueCallback {
-        void onValueCallback(@Nullable ValueCallback<Uri[]> callback);
+        void onValueCallback(@Nullable ValueCallback<Uri[]> callback, @Nullable WebChromeClient.FileChooserParams fileChooserParams);
     }
 
     @Nullable
@@ -50,7 +50,7 @@ public class BridgeWebChromeClient extends WebChromeClient {
         if (c == null) {
             return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
         } else {
-            c.onValueCallback(filePathCallback);
+            c.onValueCallback(filePathCallback, fileChooserParams);
             return true;
         }
     }
