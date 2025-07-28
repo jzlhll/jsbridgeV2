@@ -18,13 +18,21 @@ https://github.com/lzyzsd/JsBridge 1.0.4的版本还是挺好用的。为了兼�
 但是到了今天，可以摒弃4.x。于是我基于该框架，并完全兼容以前的前端H5代码，实现了jsbridge2.0。目前公司日活顶峰50w+。支持androiod5.0+，使用evaluateJavascript和重写，代码上也能简化。
 
 > 我的原理webView的`addJavascriptInterface(bridgeObject)` + `evaluateJavascript` 
+> JsBridge主要的目的是解决四种逻辑：
+> native -> H5; 
+>
+> H5 -> native; 
+>
+> native -> h5并有回调；
+>
+> H5->native并有回调。
 >
 > 1. 准备工作做好基础的插入js片段；并插入addJavascriptInterface的对象体；
-> 2. native调用webView很简单了，直接evaluateJavascript就可以传递内容而且没有2MB大小限制；
-> 3. webView调用native也简单了，通过对象体的加了`@JavascriptInterface`的函数直接调用native即可。
-> 4. 再通过消息体传递msgId，设计一点map，做callback即可。
-
-
+> 2. native调用js很简单，直接evaluateJavascript("WebViewJavascriptBridge._handleMessageFromNative('%s');")就可以传递内容而且没有2MB大小限制；
+> 3. js调用native也简单，通过对象体的加了`@JavascriptInterface`的函数直接调用native函数(jsCall)即可。
+> 4. H5->native的回调设计：js调用native的时候，把js的callback体缓存到一个map中，并创建msgId，和消息体形成Message通过jsCall调用到native；native解析Message，同步也好异步也好，再将msgId结合结果信息封装Message通过evaluateJavascript回调_handleMessageFromNative回来，然后从map中提取callback去执行；
+> 5. native->H5的回调设计：native通过执行js调用，封装msgId和消息体，给到了js去_handleMessageFromNative。js处理完成后，通过直接调用JavascriptInterface的函数jsResponse往native调用。native通过Message解析出之前的msgId，进而将缓存的callback提取并执行回调。
+> 6. 还设计了handleName来实现统一分类逻辑，native和H5都有map（messageHandlers）提供注册好需要执行的处理函数。
 
 ## 优化点
 > 解决原代码1.0.4和master中的问题：jsbridge2.0 解决了大量存在的问题。
